@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1lw6jexejo73"]
+
+[ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://scenes/Dude_monster.tscn" id="2_lnu2h"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lnu2h"]
+distance = -1.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="Dude_monster" parent="." instance=ExtResource("2_lnu2h")]
+position = Vector2(-13, 53)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 80)
+shape = SubResource("WorldBoundaryShape2D_lnu2h")
