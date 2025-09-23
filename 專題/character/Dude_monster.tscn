@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://vr7dx6eog4b5" path="res://assets/角色/3 Dude_Monster/Dude_Monster_Idle_4.png" id="1_dfdha"]
 [ext_resource type="Texture2D" uid="uid://3qjfo23iryjc" path="res://assets/角色/3 Dude_Monster/Double_Jump_Dust_5.png" id="1_lwyjf"]
-[ext_resource type="Script" uid="uid://dvu1eem7cl4wy" path="res://scripts/dude_monster.gd" id="1_w5fxc"]
+[ext_resource type="Script" uid="uid://dvu1eem7cl4wy" path="res://character/dude_monster.gd" id="1_w5fxc"]
 [ext_resource type="Texture2D" uid="uid://b26pfgct22br2" path="res://assets/角色/3 Dude_Monster/Dude_Monster_Walk+Attack_6.png" id="2_w5fxc"]
 [ext_resource type="Texture2D" uid="uid://bnp53lsssub7p" path="res://assets/角色/3 Dude_Monster/Dude_Monster_Attack1_4.png" id="4_t6fsv"]
 [ext_resource type="Texture2D" uid="uid://gyqmc7fujavv" path="res://assets/角色/3 Dude_Monster/Dude_Monster_Attack2_6.png" id="5_wr264"]
@@ -540,17 +540,25 @@ radius = 8.0
 height = 24.0
 
 [node name="Dude_monster" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_w5fxc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_pnrh0")
-animation = &"Attack2"
+animation = &"Attack1"
 autoplay = "idle"
+frame_progress = 0.9908179
 
-[node name="effects" type="AnimatedSprite2D" parent="."]
+[node name="effects" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+visible = false
+position = Vector2(0, 13)
 sprite_frames = SubResource("SpriteFrames_wr264")
 animation = &"Double_Jump_Dust"
+frame = 2
+frame_progress = 0.6715044
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -12)

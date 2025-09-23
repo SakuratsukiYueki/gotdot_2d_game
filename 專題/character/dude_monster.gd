@@ -3,12 +3,11 @@ extends CharacterBody2D
 # 引用 AnimatedSprite2D 節點 (角色動畫)
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 # 引用煙塵 AnimatedSprite2D 節點
-@onready var effects: AnimatedSprite2D = $effects
-
+@onready var effects: AnimatedSprite2D = $AnimatedSprite2D/effects
 
 # 速度變數
 @export var speed = 100.0
-@export var run_speed_multiplier = 5
+@export var run_speed_multiplier = 2
 @export var jump_velocity = -400.0
 @export var gravity = 980.0
 
@@ -74,6 +73,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("ui_shift"):
 			current_speed *= run_speed_multiplier
 
+
 		if direction:
 			velocity.x = direction * current_speed
 		else:
@@ -81,34 +81,39 @@ func _physics_process(delta):
 
 		# 根據角色狀態播放動畫
 		if is_on_floor():
-			if direction:
+			if direction and Input.is_action_pressed("ui_shift"):
 				anim.play("Run")
-				anim.flip_h = direction < 0
+			elif direction:
+				anim.play("Walk")
 			else:
 				anim.play("idle")
-	
+		
+		# 將角色翻轉邏輯移到 if is_on_floor() 之外，以處理空中移動
+		if direction:
+			anim.flip_h = direction < 0
+			
 	move_and_slide()
 
 # 播放煙塵效果的函數
 func play_dust_effect():
-	# 確保煙塵節點存在且有 "Double_Jump_Dust" 或你設定的動畫
-	if effects and effects.frames and effects.frames.has_animation("Double_Jump_Dust"):
-		# 將煙塵放在角色腳下
-		effects.position = Vector2(0, anim.global_position.y - global_position.y + anim.offset.y + anim.texture.get_size().y / 2)
-		effects.play("Double_Jump_Dust")
-		effects.connect("animation_finished", Callable(effects, "hide"), CONNECT_ONE_SHOT)
+		# 顯示節點，然後播放動畫
 		effects.show()
+		effects.play("Double_Jump_Dust")
+		
+		# 連接訊號，當動畫播完後，呼叫 effects 節點的 hide() 方法
+		# CONNECT_ONE_SHOT 確保這個連接只觸發一次
+		effects.connect("animation_finished", Callable(effects, "hide"), CONNECT_ONE_SHOT)
 
 # 設定跳躍冷卻計時器
 func set_jump_cooldown():
 	can_jump = false
+	
 	var timer = get_tree().create_timer(jump_cooldown, false)
 	timer.timeout.connect(reset_jump_cooldown)
 
 # 重置跳躍冷卻狀態
 func reset_jump_cooldown():
 	can_jump = true
-
 
 func _on_climb_area_body_entered(body):
 	if body.name == "Player":
