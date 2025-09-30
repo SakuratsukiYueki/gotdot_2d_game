@@ -14,6 +14,49 @@
 [ext_resource type="Texture2D" uid="uid://b5l5gxfe6y17j" path="res://assets/角色/3 Dude_Monster/Dude_Monster_Throw_4.png" id="13_miskq"]
 [ext_resource type="Texture2D" uid="uid://dqi1uuc0cy0nl" path="res://assets/角色/3 Dude_Monster/Dude_Monster_Walk_6.png" id="14_xea24"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5c3c"]
+atlas = ExtResource("1_lwyjf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwyjf"]
+atlas = ExtResource("1_lwyjf")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5fxc"]
+atlas = ExtResource("1_lwyjf")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47a8j"]
+atlas = ExtResource("1_lwyjf")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6fsv"]
+atlas = ExtResource("1_lwyjf")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wr264"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5c3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwyjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5fxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47a8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6fsv")
+}],
+"loop": false,
+"name": &"Double_Jump_Dust",
+"speed": 8.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_kaeg7"]
 atlas = ExtResource("4_t6fsv")
 region = Rect2(0, 0, 32, 32)
@@ -269,7 +312,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hkbed")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack1",
 "speed": 8.0
 }, {
@@ -292,7 +335,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hf3ts")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack2",
 "speed": 8.0
 }, {
@@ -338,7 +381,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m2wd1")
 }],
-"loop": true,
+"loop": false,
 "name": &"Death",
 "speed": 8.0
 }, {
@@ -492,73 +535,29 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i5c3c"]
-atlas = ExtResource("1_lwyjf")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwyjf"]
-atlas = ExtResource("1_lwyjf")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w5fxc"]
-atlas = ExtResource("1_lwyjf")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_47a8j"]
-atlas = ExtResource("1_lwyjf")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6fsv"]
-atlas = ExtResource("1_lwyjf")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wr264"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i5c3c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lwyjf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w5fxc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_47a8j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t6fsv")
-}],
-"loop": false,
-"name": &"Double_Jump_Dust",
-"speed": 8.0
-}]
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohc0k"]
 radius = 8.0
 height = 24.0
 
-[node name="Dude_monster" type="CharacterBody2D"]
+[node name="Dude_monster" type="CharacterBody2D" groups=["players"]]
 z_index = 5
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_w5fxc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -16)
-sprite_frames = SubResource("SpriteFrames_pnrh0")
-animation = &"Attack1"
-autoplay = "idle"
-frame_progress = 0.9908179
-
-[node name="effects" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+[node name="effects" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(0, 13)
+position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_wr264")
 animation = &"Double_Jump_Dust"
 frame = 2
 frame_progress = 0.6715044
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_pnrh0")
+animation = &"Death"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -12)

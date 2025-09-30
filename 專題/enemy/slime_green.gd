@@ -1,47 +1,39 @@
 extends CharacterBody2D
 
-# 速度變數
-@export var speed: float = 80.0
-# 敵人的移動範圍
-@export var walk_range: float = 150.0
+@export var speed: float = 60.0 # 敵人移動速度
 
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: Area2D = $Hitbox
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-var direction: float = 1.0 # 1.0 代表向右，-1.0 代表向左
-var start_x: float = 0.0
+
+var direction: float = 1.0 # 1.0 = 右, -1.0 = 左
 
 func _ready() -> void:
-	start_x = global_position.x
-	anim.play("Run")
-	
+	'pass'
+	# 連接訊號，當玩家進入攻擊區域時執行
+
+
 func _physics_process(delta: float) -> void:
-	# 處理水平移動
+	# 根據方向設定速度
 	velocity.x = direction * speed
-	
-	# 檢查是否超出移動範圍，然後變換方向
-	if direction == 1.0 and global_position.x > start_x + walk_range:
-		direction = -1.0
-		anim.flip_h = false
-	elif direction == -1.0 and global_position.x < start_x - walk_range:
-		direction = 1.0
-		anim.flip_h = true
-	
-	# 讓怪物移動，並檢查是否碰到牆壁或物體
+
+	# 執行移動，並將結果存入一個變數
 	var was_colliding = move_and_slide()
-	
+
 	# 如果碰到物體，就變換方向
 	if was_colliding:
-		# 檢查是否撞到牆壁
+		# 取得所有碰撞資訊
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
-			if collision.get_collider(): # 假設你的牆壁節點在 "walls" 分組中
+			# 檢查碰撞的法線方向，判斷是否為側面碰撞
+			if abs(collision.get_normal().x) > 0.1:
 				direction *= -1.0
-				anim.flip_h = !anim.flip_h # 反轉圖片
-				break # 跳出迴圈，因為已經變換方向
-				
-# 偵測進入攻擊範圍的物體
+				animated_sprite_2d.flip_h = !animated_sprite_2d.flip_h # 翻轉圖片
+				break # 變換方向後就離開迴圈
+
+
+# 當有物理物體進入 AttackArea 時呼叫
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	# 這裡你可以檢查 body 是否是玩家，並對其造成傷害
-	if body.has_method("take_damage"):
-		body.take_damage(10) # 假設敵人造成 10 點傷害
+	# 檢查進入區域的物體是否在 "players" 分組中
+	if body.is_in_group("players"):
+		print("敵人碰到玩家了！")
+		# 呼叫玩家腳本上的 take_damage 函數
