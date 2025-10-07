@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var ladder_ray_cast: RayCast2D = $ladderRayCast
 # 引用 TileMapLayer 節點 (請確認路徑正確)
 @onready var tile_map_layer: TileMapLayer = $"../TileMapLayer" 
+@onready var marker_2d: Marker2D = $Marker2D
 
 
 # ==================== 屬性設定 ====================
@@ -38,7 +39,7 @@ func get_tile_movement_modifier() -> float:
 	if not is_on_floor():
 		return 1.0
 
-	var tile_coords = tile_map_layer.local_to_map(global_position)
+	var tile_coords = tile_map_layer.local_to_map(marker_2d.global_position)
 	print("角色所在圖塊座標: ", tile_coords)
 	
 	var tile_data: TileData = tile_map_layer.get_cell_tile_data(tile_coords)
