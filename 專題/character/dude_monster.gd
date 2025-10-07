@@ -2,68 +2,103 @@ extends CharacterBody2D
 
 # ==================== 節點引用 ====================
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-@onready var effects: AnimatedSprite2D = $effects
-@onready var main_sm: LimboHSM # 狀態機將在 _ready() 中實例化
+@onready var effects: AnimatedSprite2D = $effects 
+@onready var main_sm: LimboHSM 
+@onready var ladder_ray_cast: RayCast2D = $ladderRayCast
+# 引用 TileMapLayer 節點 (請確認路徑正確)
+@onready var tile_map_layer: TileMapLayer = $"../TileMapLayer" 
+
 
 # ==================== 屬性設定 ====================
-@export var speed = 100.0
+@export var base_speed = 300.0 # 基礎速度
 @export var run_speed_multiplier = 2.0
 @export var jump_velocity = -400.0
 @export var gravity = 980.0
-@export var climb_speed = 150.0
+@export var climb_speed = 150.0 
 @export var max_jumps = 2
 @export var jump_cooldown = 0.2
 
 # ==================== 狀態變數 ====================
-var is_on_ladder = false
-var can_climb = false
+var is_on_ladder = false 
+var can_climb = false    
 var jump_count = 0
 var can_jump = true
-var is_dead: bool = false # 角色的死亡狀態
-
-# 狀態機狀態物件
-var climb_state: LimboState 
-
+var is_dead: bool = false 
+var climb_state: LimboState
 
 func _ready() -> void:
-	instate_state_machine()
-	# 連接動畫結束訊號，用於在 Death 動畫結束後處理場景重載
-	anim.animation_finished.connect(_on_animation_finished) 
+	# 確保這個函數定義在腳本中是頂級的
+	instate_state_machine() 
+	anim.animation_finished.connect(_on_animation_finished)
 
+# -----------------------------------------------------------
+## 輔助函數：獲取圖塊移動修正值
+# -----------------------------------------------------------
+func get_tile_movement_modifier() -> float:
+	if not is_on_floor():
+		return 1.0
 
+	var tile_coords = tile_map_layer.local_to_map(global_position)
+	print("角色所在圖塊座標: ", tile_coords)
+	
+	var tile_data: TileData = tile_map_layer.get_cell_tile_data(tile_coords)
+	
+	if tile_data:
+		print("找到 TileData。正在檢查 movement_modifier...")
+		# 讀取名為 "movement_modifier" 的自訂浮點數值
+		var modifier = tile_data.get_custom_data("movement_modifier")
+		
+		if modifier != null:
+			print("找到修正值: ", float(modifier))
+			return float(modifier)
+			
+	print("未找到有效修正值，返回 1.0")
+	return 1.0
+
+# -----------------------------------------------------------
+## 主要物理更新
+# -----------------------------------------------------------
 func _physics_process(delta):
 	# --- 0. 死亡檢查 (最高優先級) ---
 	if is_dead:
-		# 確保狀態機進入 Die 狀態
 		if main_sm.get_active_state().name != "die":
 			main_sm.dispatch(&"to_die")
 		
-		# 即使在 Die 狀態中，也要讓重力將角色拉到地面
 		if not is_on_floor():
 			velocity.y += gravity * delta
 			
 		move_and_slide()
-		return # 死亡後，跳過所有輸入和移動邏輯
+		return
 
-	# --- 1. 物理計算 ---
-	if not is_on_floor() and not is_on_ladder:
-		velocity.y += gravity * delta
-
-	# 判斷是否可以攀爬
-	if can_climb and Input.is_action_pressed("ui_up"):
-		is_on_ladder = true
-	else:
+	# --- 1. 梯子偵測與狀態設定 ---
+	ladder_ray_cast.force_raycast_update()
+	var ladder_detected = ladder_ray_cast.is_colliding()
+	
+	can_climb = ladder_detected
+	
+	if main_sm.get_active_state().name == "climb" and not can_climb:
 		is_on_ladder = false
 
-	# 處理移動和輸入
+	# --- 2. 物理計算：重力控制 ---
+	if not is_on_floor() and not is_on_ladder:
+		velocity.y += gravity * delta
+	elif is_on_ladder:
+		velocity.y = 0
+
+	# -----------------------------------------------------------
+	# 處理移動、輸入與圖塊效果
+	# -----------------------------------------------------------
 	var direction = Input.get_axis("ui_left", "ui_right")
-	var current_speed = speed
 	
+	var modifier = get_tile_movement_modifier()
+	var effective_base_speed = base_speed * modifier
+	
+	var current_speed = effective_base_speed
 	if Input.is_action_pressed("ui_shift"):
 		current_speed *= run_speed_multiplier
-	
+
 	if direction != 0:
-		velocity.x = direction * current_speed
+		velocity.x = direction * current_speed if not is_on_ladder else 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 
@@ -71,30 +106,44 @@ func _physics_process(delta):
 
 	# 重置跳躍計數
 	if is_on_floor():
-		jump_count = 0
+		jump_count = 1
 		can_jump = true
+	# -----------------------------------------------------------
 
-	# --- 2. 狀態分派 ---
+	# --- 3. 狀態分派 ---
 	
 	# 優先級 1: 攀爬 
-	if is_on_ladder:
+	if can_climb and Input.is_action_pressed("ui_up"):
+		is_on_ladder = true
 		if main_sm.get_active_state() != climb_state: 
 			main_sm.dispatch(&"to_climb")
 	elif main_sm.get_active_state() == climb_state:
-		main_sm.dispatch("state_ended") 
+		if not is_on_ladder:
+			main_sm.dispatch("state_ended") 
 
 	# 優先級 2: 跳躍/二段跳
-	elif Input.is_action_just_pressed("ui_accept") and can_jump:
-		if is_on_floor():
-			velocity.y = jump_velocity
-			jump_count = 1
-			main_sm.dispatch(&"to_jump")
-			set_jump_cooldown()
-		elif jump_count < max_jumps:
-			velocity.y = jump_velocity
-			jump_count += 1
-			main_sm.dispatch(&"to_doublejump")
-			set_jump_cooldown()
+	if not is_on_ladder:
+		if Input.is_action_just_pressed("ui_accept") and can_jump:
+			
+			if is_on_floor():
+				velocity.y = jump_velocity
+				jump_count = 1
+				main_sm.dispatch(&"to_jump")
+				set_jump_cooldown()
+			elif jump_count < max_jumps:
+				velocity.y = jump_velocity
+				jump_count += 1
+				main_sm.dispatch(&"to_doublejump")
+				set_jump_cooldown()
+	
+	# 處理從梯子上跳躍
+	elif is_on_ladder and Input.is_action_just_pressed("ui_accept"):
+		is_on_ladder = false 
+		velocity.y = jump_velocity
+		jump_count = 1
+		main_sm.dispatch(&"to_jump")
+		set_jump_cooldown()
+
 			
 	# 狀態機更新
 	main_sm.update(delta)
@@ -117,6 +166,7 @@ func play_animation(animation_name: String):
 func play_dust_effect():
 	effects.show()
 	effects.play("Double_Jump_Dust")
+	# 使用 CONNECT_ONE_SHOT 確保動畫播完後只隱藏一次
 	effects.animation_finished.connect(effects.hide.bind(), CONNECT_ONE_SHOT)
 
 func set_jump_cooldown():
@@ -127,16 +177,14 @@ func set_jump_cooldown():
 func reset_jump_cooldown():
 	can_jump = true
 
-# 處理動畫播放結束訊號
+# 處理動畫播放結束訊號 (死亡後重載)
 func _on_animation_finished():
-	# 如果是死亡動畫播放完畢，則重載場景
 	if anim.get_animation() == "Death":
 		print("Death animation finished. Reloading scene.")
-		# 這裡可以替換成您遊戲的 "Game Over" 畫面切換邏輯
 		get_tree().reload_current_scene()
 
 
-# ==================== 狀態機設定 (LimboHSM) ====================
+# ==================== 狀態機設定 ====================
 
 func instate_state_machine():
 	main_sm = LimboHSM.new()
@@ -163,23 +211,15 @@ func instate_state_machine():
 	main_sm.initial_state = idle_state
 	
 	# --- 狀態轉換定義 (Transitions) ---
-	
-	# 最高優先級：死亡
 	main_sm.add_transition(main_sm.ANYSTATE, die_state, &"to_die")
-
-	# 核心轉換
 	main_sm.add_transition(main_sm.ANYSTATE, jump_state, &"to_jump")
 	main_sm.add_transition(main_sm.ANYSTATE, doublejump_state, &"to_doublejump")
 	main_sm.add_transition(main_sm.ANYSTATE, climb_state, &"to_climb") 
 	main_sm.add_transition(main_sm.ANYSTATE, idle_state, &"state_ended") 
-	
-	# 地面核心動作轉換
 	main_sm.add_transition(idle_state, walk_state, &"to_walk")
 	main_sm.add_transition(idle_state, run_state, &"to_run")
 	main_sm.add_transition(walk_state, run_state, &"to_run")
 	main_sm.add_transition(run_state, walk_state, &"to_walk_back") 
-	
-	# 跳躍狀態的落地轉換
 	main_sm.add_transition(jump_state, idle_state, &"jump_landed_idle")
 	main_sm.add_transition(jump_state, walk_state, &"jump_landed_walk")
 	main_sm.add_transition(jump_state, run_state, &"jump_landed_run")
@@ -190,7 +230,7 @@ func instate_state_machine():
 	main_sm.initialize(self)
 	main_sm.set_active(true)
 
-# ==================== 狀態函數 (State Functions) ====================
+# ==================== 狀態函數 ====================
 
 func idle_start():
 	play_animation("idle")
@@ -231,7 +271,7 @@ func jump_update(delta:float):
 			
 func doublejump_start():
 	play_animation("Jump")
-	play_dust_effect()
+	play_dust_effect() 
 func doublejump_update(delta:float):
 	if is_on_floor():
 		if velocity.x != 0:
@@ -244,13 +284,27 @@ func doublejump_update(delta:float):
 			
 func climb_start():
 	play_animation("Climb")
-func climb_update(delta:float):
-	var climb_direction = Input.get_axis("ui_down", "ui_up")
 	
-	if climb_direction == 0:
-		anim.stop()
-	else:
+func climb_update(delta:float):
+	var climb_direction_y = Input.get_axis("ui_up", "ui_down") 
+	var climb_direction_x = Input.get_axis("ui_left", "ui_right")
+	
+	var input_direction = Vector2(climb_direction_x, climb_direction_y)
+	
+	if input_direction.length() > 0:
+		velocity = input_direction.normalized() * climb_speed
+		
 		anim.play("Climb")
+			
+		if climb_direction_x == 1:
+			anim.flip_h = false
+		elif climb_direction_x == -1:
+			anim.flip_h = true
+
+	else:
+		velocity.x = 0
+		velocity.y = 0
+		anim.stop() 
 
 # --- 死亡狀態函數 ---
 func die_start():
@@ -259,5 +313,4 @@ func die_start():
 	velocity.y = 0 
 	
 func die_update(delta:float):
-	# 死亡後，只處理重力，等待動畫結束重啟場景
 	pass

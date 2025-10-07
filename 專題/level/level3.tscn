@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=4 uid="uid://b7x0b0jg186jn"]
+
+[ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://character/Dude_monster.tscn" id="1_7uttt"]
+[ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone.tscn" id="2_6lxtr"]
+[ext_resource type="PackedScene" uid="uid://igs4yylutbwk" path="res://tile_map/tile_map_layer.tscn" id="3_b72m1"]
+[ext_resource type="PackedScene" uid="uid://dxmko5yn1q18t" path="res://enemy/slime_green.tscn" id="4_5mhml"]
+[ext_resource type="PackedScene" uid="uid://ci3rbukx1rv51" path="res://tile_map/platform.tscn" id="5_rupth"]
+[ext_resource type="PackedScene" uid="uid://3rr8dcxjdtxq" path="res://tile_map/goal.tscn" id="6_puws0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
+distance = -118.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Dude_monster" parent="." instance=ExtResource("1_7uttt")]
+position = Vector2(-13, 53)
+
+[node name="Camera2D" type="Camera2D" parent="Dude_monster"]
+position = Vector2(13, -53)
+zoom = Vector2(2, 2)
+limit_left = -9999975
+limit_top = -9999978
+limit_right = 10000025
+limit_bottom = 142
+limit_smoothed = true
+
+[node name="Killzone" parent="." instance=ExtResource("2_6lxtr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("WorldBoundaryShape2D_yqjtg")
+
+[node name="TileMapLayer" parent="." instance=ExtResource("3_b72m1")]
+position = Vector2(8, 88)
+tile_map_data = PackedByteArray("AAD7//7/AAAAAAAAAAD8//7/AAAAAAAAAAD9//7/AAAAAAAAAAD+//7/AAAAAAAAAAD///7/AAAAAAAAAAAAAP7/AAAAAAAAAAABAP7/AAAAAAAAAADz//7/AAAAAAAAAAD0//7/AAAAAAAAAAD1//7/AAAAAAAAAAD2//7/AAAAAAAAAAD3//7/AAAAAAAAAAD4//7/AAAAAAAAAAD5//7/AAAAAAAAAAD6//7/AAAAAAAAAAACAP7/AAAAAAAAAAADAP7/AAAAAAAAAAAEAP7/AAAAAAAAAAAFAP7/AAAAAAAAAAAGAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAIAP7/AAAAAAAAAAAJAP7/AAAAAAAAAAAKAP7/AAAAAAAAAAALAP7/AAAAAAAAAAAMAP7/AAAAAAAAAAANAP7/AAAAAAAAAAAOAP7/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAPz/AAAAAAAAAAAPAP7/AAAAAAAAAAAQAP7/AAAAAAAAAAARAP7/AAAAAAAAAAASAP7/AAAAAAAAAAASAP3/AAAAAAAAAAASAPz/AAAAAAAAAAAAAPv/AQAFAAEAAAAAAPz/AQAFAAIAAAAAAP3/AQAFAAMAAAAAAPj/AQAFAAEAAAAAAPn/AQAFAAIAAAAAAPr/AQAFAAMAAAABAP3/AAAAAAEAAAABAPz/AAAAAAEAAAABAPv/AAAAAAEAAAABAPr/AAAAAAEAAAABAPn/AAAAAAEAAAABAPj/AAAAAAAAAAACAPj/AAAAAAAAAAADAPj/AAAAAAAAAAD8//f/AAACAAkAAAD7//f/AAACAAkAAAD6//j/AAACAAkAAAD5//j/AAACAAkAAAD5//f/AAACAAkAAAD5//b/AAACAAkAAAD5//X/AAACAAkAAAD5//T/AAACAAkAAAD6//P/AAACAAkAAAD7//P/AAACAAkAAAD7//L/AAACAAkAAAD8//L/AAACAAkAAAD8//P/AAACAAkAAAD7//T/AAACAAkAAAD6//X/AAACAAkAAAD6//b/AAACAAkAAAD4//j/AAACAAkAAAD3//n/AAACAAkAAAD3//r/AAACAAkAAAD2//v/AAACAAkAAAD1//v/AAACAAkAAAD1//z/AAACAAkAAAD0//z/AAACAAkAAAD0//3/AAACAAkAAAD2//r/AAACAAkAAAD7//X/AAACAAkAAAAIAPX/AAADAAAAAAAIAPT/AAADAAAAAAAHAPT/AAADAAAAAAAGAPP/AAADAAAAAAAFAPP/AAADAAAAAAAEAPP/AAADAAAAAAADAPP/AAADAAAAAAACAPP/AAADAAAAAAABAPL/AAADAAAAAAAAAPL/AAADAAAAAAD///L/AAADAAAAAAD///H/AAADAAAAAAD///D/AAADAAAAAAAAAPD/AAADAAAAAAABAPD/AAADAAAAAAA=")
+
+[node name="Enemy" parent="." instance=ExtResource("4_5mhml")]
+position = Vector2(128, 44)
+
+[node name="platform" parent="." instance=ExtResource("5_rupth")]
+position = Vector2(88, 29)
+
+[node name="Goal" parent="." instance=ExtResource("6_puws0")]
+position = Vector2(250, 23)
