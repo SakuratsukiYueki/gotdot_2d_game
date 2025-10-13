@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="專題"
-run/main_scene="uid://b1lw6jexejo73"
+run/main_scene="uid://bwiug7nj4i84m"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cyv26eld6awpv"
 
 [autoload]
 
 Gamemanager="*res://singletons/Gamemanager.gd"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [global_group]
 

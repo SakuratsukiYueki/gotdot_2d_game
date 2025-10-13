@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://b1lw6jexejo73"]
+[gd_scene load_steps=7 format=4 uid="uid://bkayynu52yjwq"]
 
 [ext_resource type="PackedScene" uid="uid://dxmko5yn1q18t" path="res://enemy/slime_green.tscn" id="2_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://character/Dude_monster.tscn" id="2_lnu2h"]

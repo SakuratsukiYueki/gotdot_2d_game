@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://bwiug7nj4i84m"]
+[gd_scene load_steps=9 format=4 uid="uid://bwiug7nj4i84m"]
 
 [ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://character/Dude_monster.tscn" id="1_ru4tf"]
 [ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone.tscn" id="2_6sh32"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dxmko5yn1q18t" path="res://enemy/slime_green.tscn" id="4_bbk5w"]
 [ext_resource type="PackedScene" uid="uid://ci3rbukx1rv51" path="res://tile_map/platform.tscn" id="5_conm7"]
 [ext_resource type="PackedScene" uid="uid://3rr8dcxjdtxq" path="res://tile_map/goal.tscn" id="6_a1r6t"]
+[ext_resource type="Texture2D" uid="uid://b3dc1mmgt10br" path="res://assets/背景/grassland2.png" id="7_pkqcj"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
 distance = -118.0
@@ -41,3 +42,29 @@ position = Vector2(82, -60)
 
 [node name="Goal" parent="." instance=ExtResource("6_a1r6t")]
 position = Vector2(267, -68)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-818.00006, -204)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_pkqcj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(706, -204)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_pkqcj")
+flip_h = true
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(2230, -205.712)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_pkqcj")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(3754, -205.712)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_pkqcj")
+flip_h = true

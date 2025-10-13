@@ -11,8 +11,8 @@ extends CharacterBody2D
 
 
 # ==================== 屬性設定 ====================
-@export var base_speed = 300.0 # 基礎速度
-@export var run_speed_multiplier = 2.0
+@export var base_speed = 200.0 # 基礎速度
+@export var run_speed_multiplier = 1.6
 @export var jump_velocity = -400.0
 @export var gravity = 980.0
 @export var climb_speed = 150.0 

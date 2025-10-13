@@ -1,3 +1,4 @@
+網路素材
 https://craftpix.net/freebies/free-pixel-art-tiny-hero-sprites/
 
 https://craftpix.net/freebies/free-tiny-pixel-hero-sprites-with-bow-attacks/
@@ -6,8 +7,18 @@ https://craftpix.net/freebies/free-tiny-pixel-hero-sprites-with-melee-attacks/
 
 https://brackeysgames.itch.io/brackeys-platformer-bundle
 
+網路教學
 https://youtu.be/vZHzMO90IwQ?si=hWJaZPP85rmUXK9U
 
 https://youtu.be/gAk3xl5fBsM?si=Ms7urDIRYYCOyfl1
 
 https://youtu.be/LOhfqjmasi0?si=5hgueOgX4H6rlb-P
+
+官方文件
+https://docs.godotengine.org/zh-tw/4.x/community/tutorials.html
+
+AI音效
+https://elevenlabs.io/app/sound-effects
+
+AI圖片生成
+https://pixai.art/

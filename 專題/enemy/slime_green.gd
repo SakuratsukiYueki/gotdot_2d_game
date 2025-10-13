@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed: float = 60.0 # 敵人移動速度
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
+var gravity = 980
 
 var direction: float = 1.0 # 1.0 = 右, -1.0 = 左
 
@@ -15,6 +15,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# 根據方向設定速度
 	velocity.x = direction * speed
+	if not is_on_floor():
+		velocity.y += gravity * delta
+		move_and_slide()
+		return
 
 	# 執行移動，並將結果存入一個變數
 	var was_colliding = move_and_slide()
