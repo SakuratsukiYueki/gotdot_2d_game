@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://bwiug7nj4i84m"]
+[gd_scene load_steps=10 format=4 uid="uid://bwiug7nj4i84m"]
 
 [ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://character/Dude_monster.tscn" id="1_ru4tf"]
 [ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone.tscn" id="2_6sh32"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ci3rbukx1rv51" path="res://tile_map/platform.tscn" id="5_conm7"]
 [ext_resource type="PackedScene" uid="uid://3rr8dcxjdtxq" path="res://tile_map/goal.tscn" id="6_a1r6t"]
 [ext_resource type="Texture2D" uid="uid://b3dc1mmgt10br" path="res://assets/背景/grassland2.png" id="7_pkqcj"]
+[ext_resource type="PackedScene" uid="uid://ynsdrjeuentj" path="res://scenes/pause_menu.tscn" id="8_hoo32"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
 distance = -118.0
@@ -68,3 +69,7 @@ position = Vector2(3754, -205.712)
 scale = Vector2(1.2, 1.032)
 texture = ExtResource("7_pkqcj")
 flip_h = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("8_hoo32")]

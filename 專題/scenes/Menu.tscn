@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cuqtyefkd8q4a"]
+[gd_scene load_steps=17 format=3 uid="uid://cuqtyefkd8q4a"]
 
 [ext_resource type="Script" uid="uid://ds4824hhnvpwh" path="res://scenes/menu.gd" id="1_xdvgc"]
 [ext_resource type="Texture2D" uid="uid://bu1l500pe2v1p" path="res://assets/背景/grassland1.png" id="2_11y2r"]
@@ -58,6 +58,12 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aaywf"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1abgu"]
+bg_color = Color(1, 1, 1, 1)
+
 [node name="Menu" type="Control" node_paths=PackedStringArray("menu", "main_settings", "video_settings", "audio_settings", "controls_settings", "back_button", "settings_button", "video_button", "audio_button", "controls_button")]
 layout_mode = 3
 anchors_preset = 0
@@ -89,6 +95,7 @@ autoplay = "default"
 script = ExtResource("4_o0tnf")
 
 [node name="menu" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 530.0
 offset_top = 470.0
@@ -97,18 +104,19 @@ offset_bottom = 571.0
 
 [node name="play" type="Button" parent="menu"]
 layout_mode = 2
-text = "play"
+text = "遊玩"
 
 [node name="setting" type="Button" parent="menu"]
 layout_mode = 2
-text = "setting
+text = "設定
 "
 
 [node name="quit" type="Button" parent="menu"]
 layout_mode = 2
-text = "quit"
+text = "退出"
 
 [node name="setting" type="VBoxContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -126,15 +134,15 @@ alignment = 1
 
 [node name="video" type="Button" parent="setting"]
 layout_mode = 2
-text = "video"
+text = "畫面"
 
 [node name="audio" type="Button" parent="setting"]
 layout_mode = 2
-text = "audio"
+text = "聲音"
 
 [node name="controls" type="Button" parent="setting"]
 layout_mode = 2
-text = "controls
+text = "控制
 "
 
 [node name="video" type="VBoxContainer" parent="." node_paths=PackedStringArray("resolution_option", "fullscreen_check", "borderless_check", "vsync_check")]
@@ -154,61 +162,64 @@ vsync_check = NodePath("HBoxContainer4/Vsync")
 [node name="video" type="Label" parent="video"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Video
+text = "畫面
 "
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="video"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = 100
+theme_override_constants/separation = 150
 
 [node name="resolutions" type="Label" parent="video/HBoxContainer"]
 layout_mode = 2
-text = "Resolutions 
-"
+text = "比例"
 
 [node name="Resolutions" type="OptionButton" parent="video/HBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_aaywf")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="video"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = 100
+theme_override_constants/separation = 150
 
 [node name="fullscreen" type="Label" parent="video/HBoxContainer2"]
 layout_mode = 2
-text = "Fullscreen
+text = "全螢幕                
 "
 
 [node name="Fullscreen" type="CheckBox" parent="video/HBoxContainer2"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1abgu")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="video"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = 100
+theme_override_constants/separation = 150
 
 [node name="borderless" type="Label" parent="video/HBoxContainer3"]
 layout_mode = 2
-text = "Borderless
+text = "無邊框                
 "
 
 [node name="Borderless" type="CheckBox" parent="video/HBoxContainer3"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1abgu")
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="video"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = 100
+theme_override_constants/separation = 150
 
 [node name="vsync" type="Label" parent="video/HBoxContainer4"]
 layout_mode = 2
-text = "Vsync
+text = "垂直同步            
 "
 
 [node name="Vsync" type="CheckBox" parent="video/HBoxContainer4"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1abgu")
 
 [node name="audio" type="VBoxContainer" parent="." node_paths=PackedStringArray("master_slider", "music_slider", "sfx_slider")]
 visible = false
@@ -412,7 +423,7 @@ offset_left = 299.0
 offset_top = 524.0
 offset_right = 344.0
 offset_bottom = 555.0
-text = "Back
+text = "返回
 "
 
 [connection signal="pressed" from="menu/play" to="." method="_on_play_pressed"]
