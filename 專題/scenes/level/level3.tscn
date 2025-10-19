@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=4 uid="uid://b7x0b0jg186jn"]
+
+[ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://scenes/character/Dude_monster.tscn" id="1_7uttt"]
+[ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone/killzone.tscn" id="2_6lxtr"]
+[ext_resource type="PackedScene" uid="uid://igs4yylutbwk" path="res://scenes/tile_map/tile_map_layer.tscn" id="3_b72m1"]
+[ext_resource type="PackedScene" uid="uid://dxmko5yn1q18t" path="res://scenes/enemy/slime_green.tscn" id="4_5mhml"]
+[ext_resource type="PackedScene" uid="uid://ci3rbukx1rv51" path="res://scenes/tile_map/platform.tscn" id="5_rupth"]
+[ext_resource type="PackedScene" uid="uid://3rr8dcxjdtxq" path="res://scenes/tile_map/goal.tscn" id="6_puws0"]
+[ext_resource type="Texture2D" uid="uid://vmoyxvto65sv" path="res://assets/背景/snow&ice1.png" id="7_cb42k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
+distance = -118.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Dude_monster" parent="." instance=ExtResource("1_7uttt")]
+position = Vector2(-48, -61)
+
+[node name="Camera2D" type="Camera2D" parent="Dude_monster"]
+position = Vector2(13, -53)
+zoom = Vector2(2, 2)
+limit_left = -9999975
+limit_top = -9999978
+limit_right = 10000025
+limit_bottom = 142
+limit_smoothed = true
+
+[node name="Killzone" parent="." instance=ExtResource("2_6lxtr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(5, -95)
+shape = SubResource("WorldBoundaryShape2D_yqjtg")
+
+[node name="TileMapLayer" parent="." instance=ExtResource("3_b72m1")]
+tile_map_data = PackedByteArray("AAD7//7/AAAAAAAAAAD8//7/AAAAAAAAAAD9//7/AAAAAAAAAAD+//7/AAAAAAAAAAD///7/AAAAAAAAAAAAAP7/AAAAAAAAAAABAP7/AAAAAAAAAADz//7/AAAAAAAAAAD0//7/AAAAAAAAAAD1//7/AAAAAAAAAAD2//7/AAAAAAAAAAD3//7/AAAAAAAAAAD4//7/AAAAAAAAAAD5//7/AAAAAAAAAAD6//7/AAAAAAAAAAACAP7/AAAAAAAAAAADAP7/AAAAAAAAAAAEAP7/AAAAAAAAAAAFAP7/AAAAAAAAAAAGAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAIAP7/AAAAAAAAAAAJAP7/AAAAAAAAAAAKAP7/AAAAAAAAAAALAP7/AAAAAAAAAAAMAP7/AAAAAAAAAAANAP7/AAAAAAAAAAAOAP7/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAPz/AAAAAAAAAAAPAP7/AAAAAAAAAAAQAP7/AAAAAAAAAAARAP7/AAAAAAAAAAASAP7/AAAAAAAAAAASAP3/AAAAAAAAAAASAPz/AAAAAAAAAAAAAPv/AQAFAAEAAAAAAPz/AQAFAAIAAAAAAP3/AQAFAAMAAAAAAPj/AQAFAAEAAAAAAPn/AQAFAAIAAAAAAPr/AQAFAAMAAAABAP3/AAAAAAEAAAABAPz/AAAAAAEAAAABAPv/AAAAAAEAAAABAPr/AAAAAAEAAAABAPn/AAAAAAEAAAABAPj/AAAAAAAAAAACAPj/AAAAAAAAAAADAPj/AAAAAAAAAAD8//f/AAACAAkAAAD7//f/AAACAAkAAAD6//j/AAACAAkAAAD5//j/AAACAAkAAAD5//f/AAACAAkAAAD5//b/AAACAAkAAAD5//X/AAACAAkAAAD5//T/AAACAAkAAAD6//P/AAACAAkAAAD7//P/AAACAAkAAAD7//L/AAACAAkAAAD8//L/AAACAAkAAAD8//P/AAACAAkAAAD7//T/AAACAAkAAAD6//X/AAACAAkAAAD6//b/AAACAAkAAAD4//j/AAACAAkAAAD3//n/AAACAAkAAAD3//r/AAACAAkAAAD2//v/AAACAAkAAAD1//v/AAACAAkAAAD1//z/AAACAAkAAAD0//z/AAACAAkAAAD0//3/AAACAAkAAAD2//r/AAACAAkAAAD7//X/AAACAAkAAAAIAPX/AAADAAAAAAAIAPT/AAADAAAAAAAHAPT/AAADAAAAAAAGAPP/AAADAAAAAAAFAPP/AAADAAAAAAAEAPP/AAADAAAAAAADAPP/AAADAAAAAAACAPP/AAADAAAAAAABAPL/AAADAAAAAAAAAPL/AAADAAAAAAD///L/AAADAAAAAAD///H/AAADAAAAAAD///D/AAADAAAAAAAAAPD/AAADAAAAAAABAPD/AAADAAAAAAA=")
+
+[node name="Enemy" parent="." instance=ExtResource("4_5mhml")]
+position = Vector2(133, -49)
+
+[node name="platform" parent="." instance=ExtResource("5_rupth")]
+position = Vector2(77, -57)
+
+[node name="Goal" parent="." instance=ExtResource("6_puws0")]
+position = Vector2(267, -73)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-818.00006, -204)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_cb42k")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(706, -204)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_cb42k")
+flip_h = true
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(2230, -205.712)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_cb42k")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(3754, -205.712)
+scale = Vector2(1.2, 1.032)
+texture = ExtResource("7_cb42k")
+flip_h = true
