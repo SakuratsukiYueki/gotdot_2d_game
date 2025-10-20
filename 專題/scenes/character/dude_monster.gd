@@ -99,7 +99,11 @@ func _physics_process(delta):
 		current_speed *= run_speed_multiplier
 
 	if direction != 0:
-		velocity.x = direction * current_speed if not is_on_ladder else 0
+		if not is_on_ladder:
+			velocity.x = direction * current_speed
+		else:
+	# 如果在梯子上，則水平速度為 0
+			velocity.x = 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 
@@ -235,7 +239,7 @@ func instate_state_machine():
 
 func idle_start():
 	play_animation("idle")
-func idle_update(delta:float):
+func idle_update(_delta:float):
 	if velocity.x != 0:
 		if Input.is_action_pressed("ui_shift"):
 			main_sm.dispatch(&"to_run")
@@ -244,7 +248,7 @@ func idle_update(delta:float):
 		
 func walk_start():
 	play_animation("Walk")
-func walk_update(delta:float):
+func walk_update(_delta:float):
 	if velocity.x == 0:
 		main_sm.dispatch("state_ended") 
 	elif Input.is_action_pressed("ui_shift"):
@@ -252,7 +256,7 @@ func walk_update(delta:float):
 		
 func run_start():
 	play_animation("Run")
-func run_update(delta:float):
+func run_update(_delta:float):
 	if velocity.x == 0:
 		main_sm.dispatch("state_ended") 
 	elif not Input.is_action_pressed("ui_shift"):
@@ -260,7 +264,7 @@ func run_update(delta:float):
 		
 func jump_start():
 	play_animation("Jump")
-func jump_update(delta:float):
+func jump_update(_delta:float):
 	if is_on_floor():
 		if velocity.x != 0:
 			if Input.is_action_pressed("ui_shift"):
@@ -273,7 +277,7 @@ func jump_update(delta:float):
 func doublejump_start():
 	play_animation("Jump")
 	play_dust_effect() 
-func doublejump_update(delta:float):
+func doublejump_update(_delta:float):
 	if is_on_floor():
 		if velocity.x != 0:
 			if Input.is_action_pressed("ui_shift"):
@@ -286,7 +290,7 @@ func doublejump_update(delta:float):
 func climb_start():
 	play_animation("Climb")
 	
-func climb_update(delta:float):
+func climb_update(_delta:float):
 	var climb_direction_y = Input.get_axis("ui_up", "ui_down") 
 	var climb_direction_x = Input.get_axis("ui_left", "ui_right")
 	
@@ -313,5 +317,5 @@ func die_start():
 	velocity.x = 0
 	velocity.y = 0 
 	
-func die_update(delta:float):
+func die_update(_delta:float):
 	pass
