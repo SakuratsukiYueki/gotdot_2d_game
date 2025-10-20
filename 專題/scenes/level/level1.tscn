@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bwiug7nj4i84m"]
+[gd_scene load_steps=13 format=4 uid="uid://bwiug7nj4i84m"]
 
 [ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://scenes/character/Dude_monster.tscn" id="1_ru4tf"]
 [ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone/killzone.tscn" id="2_6sh32"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ynsdrjeuentj" path="res://scenes/menu/pause_menu.tscn" id="8_hoo32"]
 [ext_resource type="PackedScene" uid="uid://2j0u05hac02o" path="res://scenes/spikes/spike.tscn" id="9_q1drb"]
 [ext_resource type="PackedScene" uid="uid://c8dtyf06naidm" path="res://scenes/spikes/spikedball.tscn" id="10_oe6cc"]
+[ext_resource type="PackedScene" uid="uid://ch63oggmegy16" path="res://scenes/spikes/spike_hand.tscn" id="11_m2gd4"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
 distance = -118.0
@@ -82,3 +83,6 @@ position = Vector2(156, -42)
 [node name="Spikedball" parent="." instance=ExtResource("10_oe6cc")]
 position = Vector2(-187, -137)
 single_impulse_force = 600.0
+
+[node name="SpikeHand" parent="." instance=ExtResource("11_m2gd4")]
+position = Vector2(-337, -196)
