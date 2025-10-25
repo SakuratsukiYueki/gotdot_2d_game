@@ -4,7 +4,8 @@ extends Node
 # 關卡順序清單 (Level1.tscn 是第 0 個，Level2.tscn 是第 1 個，依此類推)
 const LEVELS = [
 	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level2.tscn",
-	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level3.tscn" # 假設這是倒數第二關
+	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level3.tscn",
+	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level4.tscn" # 假設這是倒數第二關
 ]
 # 最後一關結束後要切換到的場景 (感謝畫面)
 const END_SCENE = "C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/end.tscn" 
