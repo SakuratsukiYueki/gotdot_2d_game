@@ -4,6 +4,7 @@ extends Control
 
 
 func _on_play_pressed() -> void:
+	AudioManager.play_sfx("press_button")
 	get_tree().call_deferred("change_scene_to_file", "C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level1.tscn")
 	print('play')
  
@@ -32,6 +33,7 @@ func _ready():
 	video_button.pressed.connect(_navigate_to.bind(video_settings))
 	audio_button.pressed.connect(_navigate_to.bind(audio_settings))
 	controls_button.pressed.connect(_navigate_to.bind(controls_settings))
+	AudioManager.play_music("main_menu")
 
 func _show_panel(panel: Control):
 	panel.visible = true
@@ -46,18 +48,21 @@ func _navigate_to(panel: Control):
  
 	current_panel = panel
 	_show_panel(current_panel)
+	AudioManager.play_sfx("press_button")
 	_update_back_button()
  
 func _on_back_pressed():
 	if nav_stack.is_empty():
 		return
  
+	AudioManager.play_sfx("press_button")
 	current_panel.visible = false
 	current_panel = nav_stack.pop_back()
 	_show_panel(current_panel)
 	_update_back_button()
  
 func _on_quit_pressed():
+
 	get_tree().quit()
  
  

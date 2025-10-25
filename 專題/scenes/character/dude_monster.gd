@@ -264,6 +264,7 @@ func run_update(_delta:float):
 		
 func jump_start():
 	play_animation("Jump")
+	AudioManager.play_sfx("jump")
 func jump_update(_delta:float):
 	if is_on_floor():
 		if velocity.x != 0:
@@ -276,6 +277,7 @@ func jump_update(_delta:float):
 			
 func doublejump_start():
 	play_animation("Jump")
+	AudioManager.play_sfx("jump")
 	play_dust_effect() 
 func doublejump_update(_delta:float):
 	if is_on_floor():
@@ -289,6 +291,7 @@ func doublejump_update(_delta:float):
 			
 func climb_start():
 	play_animation("Climb")
+	AudioManager.play_sfx("climb")
 	
 func climb_update(_delta:float):
 	var climb_direction_y = Input.get_axis("ui_up", "ui_down") 
@@ -300,7 +303,7 @@ func climb_update(_delta:float):
 		velocity = input_direction.normalized() * climb_speed
 		
 		anim.play("Climb")
-			
+		AudioManager.play_sfx("climb")
 		if climb_direction_x == 1:
 			anim.flip_h = false
 		elif climb_direction_x == -1:
@@ -314,6 +317,7 @@ func climb_update(_delta:float):
 # --- 死亡狀態函數 ---
 func die_start():
 	play_animation("Death") 
+	AudioManager.play_sfx("death")
 	velocity.x = 0
 	velocity.y = 0 
 	

@@ -18,8 +18,10 @@ func go_to_next_level():
 
 	if current_level_index < LEVELS.size():
 		# 還有下一個關卡：切換到下一個場景
+		AudioManager.play_sfx("goal")
 		var next_scene_path = LEVELS[current_level_index]
 		get_tree().call_deferred("change_scene_to_file", next_scene_path)
 	else:
 		# 所有關卡都已完成：切換到結束畫面
+		AudioManager.play_music("victory")
 		get_tree().call_deferred("change_scene_to_file", END_SCENE)

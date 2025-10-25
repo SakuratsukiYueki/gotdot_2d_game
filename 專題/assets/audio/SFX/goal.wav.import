@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bkvxmpbdtahog"
-path="res://.godot/imported/downfall.wav-17e0c942855fabfd175098791883ae24.sample"
+uid="uid://c7fr2i0oio64y"
+path="res://.godot/imported/goal.wav-8e8b56e8f96992bb9f55c0d254e2152e.sample"
 
 [deps]
 
-source_file="res://assets/audio/SFX/downfall.wav"
-dest_files=["res://.godot/imported/downfall.wav-17e0c942855fabfd175098791883ae24.sample"]
+source_file="res://assets/audio/SFX/goal.wav"
+dest_files=["res://.godot/imported/goal.wav-8e8b56e8f96992bb9f55c0d254e2152e.sample"]
 
 [params]
 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=4 uid="uid://dnoq4uyfthxdn"]
+[gd_scene load_steps=11 format=4 uid="uid://dnoq4uyfthxdn"]
 
+[ext_resource type="Script" uid="uid://dh2txvo7mitpu" path="res://scenes/level/level_2.gd" id="1_5fc2a"]
 [ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://scenes/character/Dude_monster.tscn" id="1_alqfr"]
 [ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone/killzone.tscn" id="2_yqkch"]
 [ext_resource type="PackedScene" uid="uid://igs4yylutbwk" path="res://scenes/tile_map/tile_map_layer.tscn" id="3_6ep0u"]
@@ -7,11 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://ci3rbukx1rv51" path="res://scenes/tile_map/platform.tscn" id="5_xa7n4"]
 [ext_resource type="PackedScene" uid="uid://3rr8dcxjdtxq" path="res://scenes/tile_map/goal.tscn" id="6_axulw"]
 [ext_resource type="Texture2D" uid="uid://boixtnk1sycsa" path="res://assets/背景/desert1.png" id="7_43ny1"]
+[ext_resource type="PackedScene" uid="uid://ynsdrjeuentj" path="res://scenes/menu/pause_menu.tscn" id="9_abfbc"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
 distance = -118.0
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_5fc2a")
 
 [node name="Dude_monster" parent="." instance=ExtResource("1_alqfr")]
 position = Vector2(-48, -54)
@@ -68,3 +71,7 @@ position = Vector2(3754, -205.712)
 scale = Vector2(1.2, 1.032)
 texture = ExtResource("7_43ny1")
 flip_h = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("9_abfbc")]

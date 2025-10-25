@@ -22,7 +22,7 @@ func pause():
 func testEsc():
 	# 只需要檢查一次 ESC 鍵的按壓
 	if Input.is_action_just_pressed("esc"):
-		
+		AudioManager.play_sfx("press_button")
 		# 檢查遊戲是否已暫停
 		if get_tree().paused:
 			# 情況 1: 遊戲已暫停 (選單已開啟)
@@ -41,16 +41,19 @@ func testEsc():
 
 
 func _on_resume_pressed():
+	AudioManager.play_sfx("press_button")
 	resume()
 
 
 func _on_quit_pressed():
+	AudioManager.play_sfx("press_button")
 	get_tree().quit()
 
 func _process(_delta):
 	testEsc()
 
 func _on_restart_pressed() -> void:
+	AudioManager.play_sfx("press_button")
 	resume()
 	get_tree().reload_current_scene()
 
@@ -86,13 +89,14 @@ func _navigate_to(panel: Control):
 		current_panel.visible = false
 
 	current_panel = panel
+	AudioManager.play_sfx("press_button")
 	_show_panel(current_panel)
 	_update_back_button()
  
 func _on_back_pressed():
 	if nav_stack.is_empty():
 		return
- 
+	AudioManager.play_sfx("press_button")
 	current_panel.visible = false
 	current_panel = nav_stack.pop_back()
 	_show_panel(current_panel)

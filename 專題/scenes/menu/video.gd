@@ -42,7 +42,6 @@ func _on_resolution_selected(index: int):
 	var parts = text.split("x")
 	if parts.size() == 2:
 		DisplayServer.window_set_size(Vector2i(int(parts[0]), int(parts[1])))
- 
 func _on_fullscreen_toggled(enabled: bool):
 	if enabled:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

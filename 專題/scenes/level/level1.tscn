@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=4 uid="uid://bwiug7nj4i84m"]
+[gd_scene load_steps=14 format=4 uid="uid://bwiug7nj4i84m"]
 
+[ext_resource type="Script" uid="uid://cg4iphvinbw1n" path="res://scenes/level/level_1.gd" id="1_jawes"]
 [ext_resource type="PackedScene" uid="uid://basqtta4lu4g1" path="res://scenes/character/Dude_monster.tscn" id="1_ru4tf"]
 [ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone/killzone.tscn" id="2_6sh32"]
 [ext_resource type="PackedScene" uid="uid://igs4yylutbwk" path="res://scenes/tile_map/tile_map_layer.tscn" id="3_ejswk"]
@@ -16,6 +17,7 @@
 distance = -118.0
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_jawes")
 
 [node name="Dude_monster" parent="." instance=ExtResource("1_ru4tf")]
 position = Vector2(-26, -44)
