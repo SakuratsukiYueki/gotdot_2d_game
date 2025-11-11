@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 @export var speed: float = 60.0 # 敵人移動速度
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -33,11 +34,3 @@ func _physics_process(delta: float) -> void:
 				direction *= -1.0
 				animated_sprite_2d.flip_h = !animated_sprite_2d.flip_h # 翻轉圖片
 				break # 變換方向後就離開迴圈
-
-
-# 當有物理物體進入 AttackArea 時呼叫
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	# 檢查進入區域的物體是否在 "players" 分組中
-	if body.is_in_group("players"):
-		print("敵人碰到玩家了！")
-		# 呼叫玩家腳本上的 take_damage 函數

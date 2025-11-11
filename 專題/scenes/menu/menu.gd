@@ -33,7 +33,6 @@ func _ready():
 	video_button.pressed.connect(_navigate_to.bind(video_settings))
 	audio_button.pressed.connect(_navigate_to.bind(audio_settings))
 	controls_button.pressed.connect(_navigate_to.bind(controls_settings))
-	AudioManager.play_music("main_menu")
 
 func _show_panel(panel: Control):
 	panel.visible = true

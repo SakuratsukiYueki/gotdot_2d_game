@@ -1,3 +1,52 @@
-[gd_scene format=3 uid="uid://c8ishufn0o1ua"]
+[gd_scene load_steps=5 format=3 uid="uid://c8ishufn0o1ua"]
+
+[ext_resource type="Script" uid="uid://bf25mruc1nas0" path="res://scenes/level/end.gd" id="1_tpv38"]
+[ext_resource type="FontFile" uid="uid://cvypei4v1hrup" path="res://assets/fonts/PixelGame-R9AZe.otf" id="2_bswhx"]
+[ext_resource type="Texture2D" uid="uid://ci425f1posqxu" path="res://assets/背景/end.png" id="3_0wbgq"]
+[ext_resource type="AudioStream" uid="uid://dbrjmtsicmw1s" path="res://assets/audio/music/Main_menu.wav" id="4_0wbgq"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_tpv38")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 530.0
+offset_top = 457.0
+offset_right = 634.0
+offset_bottom = 523.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "回到起始畫面"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "退出"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+offset_left = -26.0
+offset_top = -52.0
+offset_right = 1254.0
+offset_bottom = 716.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("3_0wbgq")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 368.0
+offset_top = 234.0
+offset_right = 880.0
+offset_bottom = 405.0
+theme_override_fonts/font = ExtResource("2_bswhx")
+theme_override_font_sizes/font_size = 102
+text = "感謝遊玩"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_0wbgq")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

@@ -8,10 +8,10 @@ const PLAYER_GROUP = "players"
 func _on_body_entered(body):
 	# 1. 檢查進入的物體是否為玩家
 	if body.is_in_group(PLAYER_GROUP):
-
+		body.cancel_checkpoint()
 		# 2. 呼叫 GameManager 進行場景切換
 		Gamemanager.go_to_next_level()
-
+	
 		# 3. 觸發後，建議將目標物件從場景中移除或禁用，以防止重複觸發
 		# 您也可以選擇性地播放一個音效或動畫
 		queue_free()

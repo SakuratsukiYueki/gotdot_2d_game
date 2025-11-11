@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var main_sm: LimboHSM 
 @onready var ladder_ray_cast: RayCast2D = $ladderRayCast
 # 引用 TileMapLayer 節點 (請確認路徑正確)
-@onready var tile_map_layer: TileMapLayer = $"../TileMapLayer" 
+@onready var tile_map_layer: TileMapLayer = $"../TileMapLayer"
 @onready var marker_2d: Marker2D = $Marker2D
 
 
@@ -27,8 +27,13 @@ var can_jump = true
 var is_dead: bool = false 
 var climb_state: LimboState
 
+
 func _ready() -> void:
 	# 確保這個函數定義在腳本中是頂級的
+# 檢查全局數據中是否有有效的重生位置
+	if Gamemanager.last_safe_position != Vector2.ZERO:
+		# 如果有，將角色移動到該位置
+		self.global_position = Gamemanager.last_safe_position
 	instate_state_machine() 
 	anim.animation_finished.connect(_on_animation_finished)
 
@@ -323,3 +328,12 @@ func die_start():
 	
 func die_update(_delta:float):
 	pass
+
+func jump():
+	velocity.y = jump_velocity
+func save_checkpoint():
+	# 將當前的全局位置儲存到單例中
+	Gamemanager.last_safe_position = global_position
+	
+func cancel_checkpoint():
+	Gamemanager.last_safe_position = Vector2.ZERO

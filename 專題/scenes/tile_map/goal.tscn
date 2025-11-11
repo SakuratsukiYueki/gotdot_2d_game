@@ -1,83 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://3rr8dcxjdtxq"]
+[gd_scene load_steps=6 format=3 uid="uid://3rr8dcxjdtxq"]
 
 [ext_resource type="Script" uid="uid://ct3unlr2w3fnh" path="res://scenes/tile_map/goal.gd" id="1_bnp5i"]
-[ext_resource type="Texture2D" uid="uid://bubydlr1sky35" path="res://assets/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png" id="2_6q4mb"]
+[ext_resource type="Texture2D" uid="uid://wc7nlx8ntgsq" path="res://assets/Checkpoints/End/End (Idle).png" id="2_imxoa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k87v5"]
 size = Vector2(36, 47)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xyamj"]
-atlas = ExtResource("2_6q4mb")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8o6uq"]
+atlas = ExtResource("2_imxoa")
 region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_43x5m"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bcqos"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8146y"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lecal"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1paid"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kj8im"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lhxsr"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_56h38"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(512, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ynve2"]
-atlas = ExtResource("2_6q4mb")
-region = Rect2(576, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_874kr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xyamj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_43x5m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bcqos")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8146y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lecal")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1paid")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kj8im")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lhxsr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_56h38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ynve2")
+"texture": SubResource("AtlasTexture_8o6uq")
 }],
 "loop": true,
 "name": &"idle",
@@ -95,6 +32,6 @@ shape = SubResource("RectangleShape2D_k87v5")
 sprite_frames = SubResource("SpriteFrames_874kr")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.7171915
+frame_progress = 0.8642965
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -61,3 +61,4 @@ func play_music(sound_name: String):
 func stop_music():
 	if music_player.playing:
 		music_player.stop()
+		
