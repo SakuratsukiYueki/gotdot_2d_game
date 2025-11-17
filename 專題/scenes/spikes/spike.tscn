@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://2j0u05hac02o"]
+
+[ext_resource type="Texture2D" uid="uid://b0pw1rb0frf27" path="res://assets/地圖/Spikes/Idle.png" id="1_r0xco"]
+[ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone/killzone.tscn" id="2_eu6er"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu6er"]
+size = Vector2(29, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2uxg1"]
+size = Vector2(29, 5)
+
+[node name="spike" type="Area2D"]
+position = Vector2(0, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_r0xco")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+texture = ExtResource("1_r0xco")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.5, 5.5)
+shape = SubResource("RectangleShape2D_eu6er")
+
+[node name="Killzone" parent="." instance=ExtResource("2_eu6er")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(7.5, 5.5)
+shape = SubResource("RectangleShape2D_2uxg1")

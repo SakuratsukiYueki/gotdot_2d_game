@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8dtyf06naidm"]
+
+[ext_resource type="Script" uid="uid://gekq3gycm1jh" path="res://spikedball.gd" id="1_r4yjv"]
+[ext_resource type="Texture2D" uid="uid://c7pt1aoiudt1m" path="res://assets/地圖/Spiked Ball/Chain.png" id="2_gklvr"]
+[ext_resource type="Texture2D" uid="uid://bq63anl3ax51p" path="res://assets/地圖/Spiked Ball/Spiked Ball.png" id="3_2spif"]
+[ext_resource type="PackedScene" uid="uid://crihny67em4rd" path="res://scenes/killzone/killzone.tscn" id="4_c0i7m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmgsu"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nmfpg"]
+radius = 9.055386
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mlfff"]
+radius = 12.0
+
+[node name="Spikedball" type="Node2D"]
+script = ExtResource("1_r4yjv")
+single_impulse_force = 300.0
+
+[node name="chian1" type="RigidBody2D" parent="."]
+freeze = true
+
+[node name="Sprite2D" type="Sprite2D" parent="chian1"]
+texture = ExtResource("2_gklvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chian1"]
+shape = SubResource("CircleShape2D_kmgsu")
+
+[node name="chian2" type="RigidBody2D" parent="."]
+position = Vector2(0, 11)
+
+[node name="Sprite2D" type="Sprite2D" parent="chian2"]
+texture = ExtResource("2_gklvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chian2"]
+shape = SubResource("CircleShape2D_kmgsu")
+
+[node name="chian3" type="RigidBody2D" parent="."]
+position = Vector2(0, 22)
+
+[node name="Sprite2D" type="Sprite2D" parent="chian3"]
+texture = ExtResource("2_gklvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chian3"]
+shape = SubResource("CircleShape2D_kmgsu")
+
+[node name="chian4" type="RigidBody2D" parent="."]
+position = Vector2(0, 33)
+
+[node name="Sprite2D" type="Sprite2D" parent="chian4"]
+texture = ExtResource("2_gklvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chian4"]
+shape = SubResource("CircleShape2D_kmgsu")
+
+[node name="chian5" type="RigidBody2D" parent="."]
+position = Vector2(0, 44)
+
+[node name="Sprite2D" type="Sprite2D" parent="chian5"]
+texture = ExtResource("2_gklvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chian5"]
+shape = SubResource("CircleShape2D_kmgsu")
+
+[node name="Spikedball" type="RigidBody2D" parent="."]
+position = Vector2(0, 65)
+
+[node name="Sprite2D" type="Sprite2D" parent="Spikedball"]
+texture = ExtResource("3_2spif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spikedball"]
+shape = SubResource("CircleShape2D_nmfpg")
+
+[node name="Killzone" parent="Spikedball" instance=ExtResource("4_c0i7m")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spikedball/Killzone"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_mlfff")
+
+[node name="PinJoint2D12" type="PinJoint2D" parent="."]
+position = Vector2(0, 5)
+node_a = NodePath("../chian1")
+node_b = NodePath("../chian2")
+
+[node name="PinJoint2D23" type="PinJoint2D" parent="."]
+position = Vector2(0, 17)
+node_a = NodePath("../chian2")
+node_b = NodePath("../chian3")
+
+[node name="PinJoint2D34" type="PinJoint2D" parent="."]
+position = Vector2(0, 28)
+node_a = NodePath("../chian3")
+node_b = NodePath("../chian4")
+
+[node name="PinJoint2D45" type="PinJoint2D" parent="."]
+position = Vector2(0, 39)
+node_a = NodePath("../chian4")
+node_b = NodePath("../chian5")
+
+[node name="PinJoint2D5ball" type="PinJoint2D" parent="."]
+position = Vector2(0, 51)
+node_a = NodePath("../chian5")
+node_b = NodePath("../Spikedball")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
