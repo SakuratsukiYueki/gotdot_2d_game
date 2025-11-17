@@ -1,3 +1,0 @@
-Godot_v4.5-stable_win64.exe.zip filter=lfs diff=lfs merge=lfs -text
-gotdot_2d_game.rar filter=lfs diff=lfs merge=lfs -text
-*.exe filter=lfs diff=lfs merge=lfs -text
