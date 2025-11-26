@@ -5,7 +5,7 @@ extends Control
 
 func _on_play_pressed() -> void:
 	AudioManager.play_sfx("press_button")
-	get_tree().call_deferred("change_scene_to_file", "C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level1.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/level/level1.tscn")
 	print('play')
  
 @export var menu: VBoxContainer

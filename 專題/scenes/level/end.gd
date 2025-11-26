@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	get_tree().call_deferred("change_scene_to_file", "C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/menu/Menu.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/menu/Menu.tscn")
 
 
 func _on_button_2_pressed() -> void:

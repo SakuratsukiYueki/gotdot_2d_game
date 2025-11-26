@@ -2,13 +2,13 @@ extends Node
 # 【重要】請用您的場景路徑替換以下內容。
 # 關卡順序清單 (Level1.tscn 是第 0 個，Level2.tscn 是第 1 個，依此類推)
 const LEVELS = [
-	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level1.tscn",
-	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level2.tscn",
-	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level3.tscn",
-	"C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/level4.tscn" # 假設這是倒數第二關
+	"res://scenes/level/level1.tscn",
+	"res://scenes/level/level2.tscn",
+	"res://scenes/level/level3.tscn",
+	"res://scenes/level/level4.tscn" # 假設這是倒數第二關
 ]
 # 最後一關結束後要切換到的場景 (感謝畫面)
-const END_SCENE = "C:/Users/a0968/Desktop/gotdot_2d_game/專題/scenes/level/end.tscn" 
+const END_SCENE = "res://scenes/level/end.tscn" 
 
 var current_level_index = 0
 var last_safe_position: Vector2 = Vector2.ZERO
